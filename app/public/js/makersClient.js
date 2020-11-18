@@ -4,6 +4,7 @@ class makersClient {
   }
 
   get(requestUrl, callback) {
+    debugger;
     return fetch(this.rootUrl + requestUrl)
       .then(response => response.json())
       .then(data => callback(data));
