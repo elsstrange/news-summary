@@ -2,4 +2,4 @@ let url = "http://news-summary-api.herokuapp.com/guardian?apiRequestUrl=http://c
 let client = new Client()
 let targetElement = document.getElementById('headlines')
 
-client.get(url, data => new headlineLister(data, targetElement).render());
+client.get(url, data => new headlineList(data, targetElement).render());

@@ -1,4 +1,4 @@
-class headlineLister {
+class headlineList {
   constructor(data, target) {
     this.data = data;
     this.target = target;
