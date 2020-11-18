@@ -1,5 +1,5 @@
-let url = "http://news-summary-api.herokuapp.com/guardian?apiRequestUrl=http://content.guardianapis.com/search?q=NOT%20sport&from-date=2020-11-15&order-by=newest"
-let client = new Client()
+let requestUrl = "guardian?apiRequestUrl=http://content.guardianapis.com/search?q=NOT%20sport&from-date=2020-11-15&order-by=newest"
+let client = new makersClient()
 let targetElement = document.getElementById('headlines')
 
-client.get(url, data => new headlineList(data, targetElement).render());
+client.get(requestUrl, data => new headlineList(data, targetElement).render());
