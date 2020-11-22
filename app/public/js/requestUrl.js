@@ -3,6 +3,10 @@ class requestUrl {
     return `guardian?apiRequestUrl=http://content.guardianapis.com/search?q=${topic}&from-date=${this.formatToday()}`
   }
 
+  createAylienRequest(article) {
+    return `http://news-summary-api.herokuapp.com/aylien?apiRequestUrl=https://api.aylien.com/api/v1/summarize?url=${article}"`
+  }
+
   formatToday() {
     let date = new Date();
     let year = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(date);
