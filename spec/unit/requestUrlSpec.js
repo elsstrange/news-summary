@@ -30,7 +30,7 @@ describe('requestUrl', () =>{
     });
 
     it("returns an Aylien API request URL for the URL specified", () => {
-      expect(requesturl.createAylienRequest(urlToSummarise)).toEqual(`http://news-summary-api.herokuapp.com/aylien?apiRequestUrl=https://api.aylien.com/api/v1/summarize?url=${urlToSummarise}&sentences_number=7`)
+      expect(requesturl.createAylienRequest(urlToSummarise)).toEqual(`aylien?apiRequestUrl=https://api.aylien.com/api/v1/summarize?url=${urlToSummarise}&sentences_number=7`)
     })
   })
 });
