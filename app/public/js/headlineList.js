@@ -7,16 +7,19 @@ class headlineList {
   render() {
     this.resetInnerHTML()
     this.data.response.results.forEach((result) => {
-      let para = this.createPara(result.webTitle)
-      let link = this.createLink(result.webUrl)
-      link.appendChild(this.createButton('Full Article'))
-      para.appendChild(link)
-      this.target.appendChild(para)
+      let para = this.createPara(result.webTitle);
+      let fullArticleLink = this.createLink(result.webUrl);
+      fullArticleLink.appendChild(this.createButton('Full Article'));
+      let summaryLink = this.createLink(`#${result.id}`);
+      summaryLink.appendChild(this.createButton('Seven Sentence Summary'));
+      para.appendChild(summaryLink);
+      para.appendChild(fullArticleLink);
+      this.target.appendChild(para);
     })
   }
 
   resetInnerHTML() {
-    this.target.innerHTML = ""
+    this.target.innerHTML = "";
   }
   
   createButton(text) {
