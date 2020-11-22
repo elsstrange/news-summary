@@ -3,8 +3,10 @@ let targetElement
 
 window.addEventListener('load', () => { 
   getHeadlinesData()
-    .then((headlinesData) => renderHeadlines(headlinesData))
-    .then((headlinesData) => addHashChangeListener(headlinesData));
+    .then((headlinesData) => {
+      renderHeadlines(headlinesData);
+      return headlinesData;
+    }).then((headlinesData) => addHashChangeListener(headlinesData));
 });
 
 function getHeadlinesData() {
@@ -17,11 +19,8 @@ function getHeadlinesData() {
 }
 
 function renderHeadlines(data) {
-  return new Promise((resolve) => {
-    targetElement = document.getElementById('headlines');
-    new headlineList(data, targetElement).render();
-    resolve(data);
-  });
+  targetElement = document.getElementById('headlines');
+  new headlineList(data, targetElement).render();
 }
 
 function addHashChangeListener(headlinesData) {
