@@ -5,6 +5,7 @@ class headlineList {
   }
   
   render() {
+    this.target.innerHTML = ""
     this.data.response.results.forEach((result) => {
       let para = this.createPara(result.webTitle)
       let link = this.createLink(result.webUrl)
