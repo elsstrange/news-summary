@@ -27,8 +27,13 @@ function renderHeadlines(data) {
 function addHashChangeListener(headlinesData) {
   window.addEventListener('hashchange', (event) => {
     event.preventDefault();
-    article = headlinesData.response.results.filter(result => result.id === window.location.hash.slice(1))[0];
-    let aylienRequestUrl = new requestUrl().createAylienRequest(article.webUrl);
-    client.get(aylienRequestUrl, summaryData => new articleSummary(summaryData, targetElement).render());
+    if (window.location.hash === "") {
+      getHeadlinesData()
+        .then((newHeadlinesData) => renderHeadlines(newHeadlinesData));
+    } else {
+      article = headlinesData.response.results.filter(result => result.id === window.location.hash.slice(1))[0];
+      let aylienRequestUrl = new requestUrl().createAylienRequest(article.webUrl);
+      client.get(aylienRequestUrl, summaryData => new articleSummary(summaryData, article.webTitle, targetElement).render());
+    }
   });
 }
