@@ -1,28 +1,34 @@
-let guardianRequestUrl
-let aylienRequestUrl
 let client
 let targetElement
 
-new Promise((resolve) => {
-  window.addEventListener('load', () => { 
-    setUpPage();
-    resolve();
-  })
-}).then(() => setUpListener())
+window.addEventListener('load', () => { 
+  getHeadlinesData()
+    .then((headlinesData) => renderHeadlines(headlinesData))
+    .then((headlinesData) => addHashChangeListener(headlinesData));
+});
 
-
-setUpPage = (event) => {
-  guardianRequestUrl = new requestUrl().createGuardianRequest('politics')
-  client = new makersClient()
-  targetElement = document.getElementById('headlines')
-
-  client.get(guardianRequestUrl, data => new headlineList(data, targetElement).render());
+function getHeadlinesData() {
+  return new Promise((resolve) => {
+    let guardianRequestUrl = new requestUrl().createGuardianRequest('politics');
+    client = new makersClient();
+    headlinesData = client.get(guardianRequestUrl, (data) => { return data });
+    resolve(headlinesData);
+  });
 }
 
-setUpListener = () => {
+function renderHeadlines(data) {
+  return new Promise((resolve) => {
+    targetElement = document.getElementById('headlines');
+    new headlineList(data, targetElement).render();
+    resolve(data);
+  });
+}
+
+function addHashChangeListener(headlinesData) {
   window.addEventListener('hashchange', (event) => {
-    articleUrl = `https://www.theguardian.com/${window.location.hash.slice(1)}`
-    aylienRequestUrl = new requestUrl().createAylienRequest(articleUrl)
-    client.get(aylienRequestUrl, data => new articleSummary(data, targetElement).render())
-  })
+    event.preventDefault();
+    article = headlinesData.response.results.filter(result => result.id === window.location.hash.slice(1))[0];
+    let aylienRequestUrl = new requestUrl().createAylienRequest(article.webUrl);
+    client.get(aylienRequestUrl, summaryData => new articleSummary(summaryData, targetElement).render());
+  });
 }
