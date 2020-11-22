@@ -22,5 +22,11 @@ describe('articleSummary', () => {
       summary.render()
       expect(mockTargetElement.innerHTML).toEqual(expectedHTML)
     });
+
+    it('resets the innerHTML of the specified element before appending the summary content', () => {
+      summary.render()
+      summary.render()
+      expect(mockTargetElement.innerHTML).toEqual(expectedHTML)
+    })
   });
 });
