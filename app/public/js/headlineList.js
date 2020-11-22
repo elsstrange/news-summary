@@ -5,7 +5,7 @@ class headlineList {
   }
   
   render() {
-    this.target.innerHTML = ""
+    this.resetInnerHTML()
     this.data.response.results.forEach((result) => {
       let para = this.createPara(result.webTitle)
       let link = this.createLink(result.webUrl)
@@ -15,6 +15,10 @@ class headlineList {
     })
   }
 
+  resetInnerHTML() {
+    this.target.innerHTML = ""
+  }
+  
   createButton(text) {
     let button = document.createElement('button')
     button.textContent = text
